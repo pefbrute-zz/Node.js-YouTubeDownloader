@@ -9,12 +9,13 @@ app.listen(3000, () => {
   console.log("It Works!");
 });
 
-app.get("/", (req, res) => { 
-  res.sendFile("index.html", { root: "./" });
+app.get("/", (request, response) => { 
+  response.sendFile("index.html", { root: "./" });
 });
 
-app.get('/download', (req, res) => {
-  var url = req.query.url;    
-  res.header("Content-Disposition", 'attachment;\  filename="Video.mp4');    
-  ytdl(url, {format: 'mp4'}).pipe(res);
+app.get('/download', (request, response) => {
+  let query = request.query;
+  var url = query.url;    
+  response.header("Content-Disposition", 'attachment;\  filename="Video.mp4');    
+  ytdl(url, {format: 'mp4'}).pipe(response);
 });
